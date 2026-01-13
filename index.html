@@ -1,21 +1,24 @@
-<html>
-    <head>
-        <title>My First Page</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vite-project</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div style="border: solid 1px;">Header</div>
+    <div style="display: flex; flex-direction: row; height: 95vh;">
+      <div style="border: solid 1px; flex-grow: 1;">
+        <button id="hiButton">Say Hi!</button>
+      </div>
+      <div id="scene" style="position: relative; border: solid 1px; flex-grow: 9; overflow: hidden;">
+        <div id="world"></div>
+      </div>
+    </div>
+    
 
-    <body>
-        <div class="box">
-            <nav>
-                <a href="pageOne.html" target="contentFrame">One</a>
-                <a href="pageTwo.html" target="contentFrame">Two</a>
-                <a href="pageThree.html" target="contentFrame">Three</a>
-            </nav>
-
-        </div>
-        <div class="box">
-            <iframe name="contentFrame" src="pageOne.html" width="100%" height="600" style="border:none;"></iframe>
-        </div>
-
-    </body>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
