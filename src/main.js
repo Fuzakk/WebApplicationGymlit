@@ -1,66 +1,55 @@
 import { Camera } from "./Camera";
-
-
+import { Novy } from "./novy";
+import { Object } from "./Object";
+ 
 const hiButton = document.getElementById("hiButton");
+const novyObjekt = document.getElementById("novy");
 const scene = document.getElementById("scene");
 const world = document.getElementById("world");
-
+ 
 const camera = new Camera(scene, world, 0, 0);
-
+ 
 let counter = 0;
-
+ 
 hiButton.innerHTML = `${counter}`;
-
-const testDiv = document.createElement("div");
-testDiv.classList.add("roundObject");
-testDiv.style.width = "200px";
-testDiv.style.height = "200px";
-testDiv.style.left = "200px";
-testDiv.style.top = "200px";
-testDiv.style.position = "absolute";
-
-world.appendChild(testDiv);
-
-const round = document.createElement("round");
-round.classList.add("round");
-round.style.width = "70px";
-round.style.height = "70px";
-round.style.left = "70px";
-round.style.top = "-35px";
-round.style.position = "absolute";
-testDiv.appendChild(round);
-
-
-const round2 = document.createElement("round2");
-round2.classList.add("round");
-round2.style.width = "70px";
-round2.style.height = "70px";
-round2.style.left = "70px";
-round2.style.top = "165px";
-round2.style.position = "absolute";
-testDiv.appendChild(round2);
-
-round.addEventListener("mousedown", (e) => {
-    if(e.button ===0) {
-        round.style.background = "red"
+ 
+const testDiv = new Object(camera, 300, 300, 200, 200);
+ 
+testDiv.element.classList.add("roundObject");
+testDiv.element.style.position = "absolute";
+ 
+world.appendChild(testDiv.element);
+ 
+const round = new Object(camera, 0, 0, 50, 50);
+round.element.classList.add("round");
+round.element.style.position = "absolute";
+testDiv.element.appendChild(round.element);
+ 
+round.element.addEventListener("mousedown", (e) => {  
+    e.preventDefault();
+    if (e.button === 2){
+        round.element.style.background = null;
     }
-    else if (e.button===2){
-        round.style.background = null
+    if(e.button === 0){
+        round.element.style.background = "red";
     }
-    })
-
-
-round2.addEventListener("mousedown", (e) => {
-    if(e.button ===0) {
-        round2.style.background = "red"
+})
+ 
+const round2 = new Object(camera, 50, 50, 50, 50);
+round2.element.classList.add("round");
+round2.element.style.position = "absolute";
+testDiv.element.appendChild(round2.element);
+ 
+round2.element.addEventListener("mousedown", (e) => {  
+    e.preventDefault();
+    if (e.button === 2){
+        round2.element.style.background = null;
     }
-    else if (e.button===2){
-        round2.style.background = null
+    if(e.button === 0){
+        round2.element.style.background = "red";
     }
-    })
-
-
-
+})
+ 
 hiButton.addEventListener("click", (e) => {
     ++counter;
     hiButton.innerHTML = `${counter}`;
@@ -69,5 +58,14 @@ hiButton.addEventListener("click", (e) => {
     } else {
         hiButton.style.background = "green";
     }
-
+ 
+});
+ 
+const objectList = [];
+ 
+ 
+novyObjekt.addEventListener("click", (e) => {
+    const ob = new Novy(world, 10, 10, 100, 100);
+    ob.element.classList.add("objekt");
+    objectList.push(ob);
 });
