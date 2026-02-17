@@ -1,6 +1,7 @@
 import { Camera } from "./Camera";
 import { Novy } from "./novy";
 import { Object } from "./Object";
+import { Control } from "./control";
  
 const hiButton = document.getElementById("hiButton");
 const novyObjekt = document.getElementById("novy");
@@ -9,6 +10,11 @@ const world = document.getElementById("world");
  
 const camera = new Camera(scene, world, 0, 0);
  
+
+const xControl = new Control ("Souřanice x")
+
+
+
 let counter = 0;
  
 hiButton.innerHTML = `${counter}`;
