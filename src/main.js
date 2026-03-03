@@ -2,6 +2,7 @@ import { Camera } from "./Camera";
 import { Novy } from "./novy";
 import { Object } from "./Object";
 import { Control } from "./control";
+import { Ball } from "./ball";
  
 const hiButton = document.getElementById("hiButton");
 const novyObjekt = document.getElementById("novy");
@@ -10,10 +11,18 @@ const world = document.getElementById("world");
  
 const camera = new Camera(scene, world, 0, 0);
  
+const ball = new Ball(world, 50, 50, "red", 100, 100)
 
 const xControl = new Control ("Souřanice x")
+//console.log(xControl.controlName) //napise mi to do konzole
+xControl.buttonElement.onclick = () => {
+bod.style.left = `${xControl.inputElement.value}px`
+}; //tzv lambda funkce, do slozenych pisu to, co se ma stat kdyz ji zavolam
 
-
+const yControl = new Control ("Souřanice y")
+yControl.buttonElement.onclick = () => {
+bod.style.top = `${yControl.inputElement.value}px`;
+};
 
 let counter = 0;
  

@@ -10,10 +10,14 @@ this.element.appendChild(nameDiv)
 const controlPanel = document.getElementById("controlPanel")
 controlPanel.appendChild(this.element)
 
-this.button = document.createElement("button")
+
+this.inputElement = document.createElement("input") //this znamena, ze si to ta trida bude pamatovat (na rozdil od const)
+this.element.appendChild(this.inputElement);
 
 
-this.input
+this.buttonElement = document.createElement("button")
+this.buttonElement.innerText = "Odeslat"
+this.element.appendChild(this.buttonElement);
 
 }
 
