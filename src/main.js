@@ -5,10 +5,10 @@ import { Control } from "./control";
 import { Ball } from "./ball";
  
 const hiButton = document.getElementById("hiButton");
-const novyObjekt = document.getElementById("novy");
+//const novyObjekt = document.getElementById("novy");
 const scene = document.getElementById("scene");
 const world = document.getElementById("world");
- 
+const start = document.getElementById("start");
 const camera = new Camera(scene, world, 0, 0);
  
 const ball = new Ball(world, 50, 50, "red", 100, 100)
@@ -16,19 +16,40 @@ const ball = new Ball(world, 50, 50, "red", 100, 100)
 const xControl = new Control ("Souřanice x")
 //console.log(xControl.controlName) //napise mi to do konzole
 xControl.buttonElement.onclick = () => {
-bod.style.left = `${xControl.inputElement.value}px`
+ball.element.style.left = `${xControl.inputElement.value}px`
 }; //tzv lambda funkce, do slozenych pisu to, co se ma stat kdyz ji zavolam
 
 const yControl = new Control ("Souřanice y")
 yControl.buttonElement.onclick = () => {
-bod.style.top = `${yControl.inputElement.value}px`;
+ball.element.style.top = `${yControl.inputElement.value}px`;
 };
+
+
+let lastTime = document.timeline.currentTime
+let ax = 0
+let ay = 1
+function simulate (timestamp) {
+    let dt = (timestamp - lastTime )/1000
+    lastTime = timestamp
+
+    ball.vx = ball.vx + ax * dt;
+    ball.vy = ball.vy + ay * dt;
+
+    ball.x = ball.x + ball.vx * dt;
+    ball.y = ball.y + ball.vy * dt;
+    ball.element.style.left = `${ball.x}px`
+    ball.element.style.top = `${ball.y}px`
+    requestAnimationFrame(simulate)
+    }
+    start.addEventListener("click", (e) => {let animID = requestAnimationFrame(simulate)})
+
+
 
 let counter = 0;
  
 hiButton.innerHTML = `${counter}`;
  
-const testDiv = new Object(camera, 300, 300, 200, 200);
+/*const testDiv = new Object(camera, 300, 300, 200, 200);
  
 testDiv.element.classList.add("roundObject");
 testDiv.element.style.position = "absolute";
@@ -83,4 +104,4 @@ novyObjekt.addEventListener("click", (e) => {
     const ob = new Novy(world, 10, 10, 100, 100);
     ob.element.classList.add("objekt");
     objectList.push(ob);
-});
+});*/
