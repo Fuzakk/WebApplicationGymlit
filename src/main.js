@@ -3,15 +3,30 @@ import { Novy } from "./novy";
 import { Object } from "./Object";
 import { Control } from "./control";
 import { Ball } from "./ball";
+import {Zem} from ".zem"
  
 const hiButton = document.getElementById("hiButton");
 //const novyObjekt = document.getElementById("novy");
 const scene = document.getElementById("scene");
 const world = document.getElementById("world");
 const start = document.getElementById("start");
+const stop = document.getElementById("stop");
+const reset = document.getElementById("reset");
 const camera = new Camera(scene, world, 0, 0);
+
+const zem = document.getElementById("zem")
+zem.style.border = "solid 6px"
+zem.style.position = "absolute"
+zem.style.height = "10px"
+zem.style.width = "1480px"
+zem.style.top = "777px"
+zem.style.left = "0px"
+
+
+
+
  
-const ball = new Ball(world, 50, 50, "red", 100, 100)
+const ball = new Ball(world, 50, 50, "purple", 100, 100)
 
 const xControl = new Control ("Souřanice x")
 //console.log(xControl.controlName) //napise mi to do konzole
@@ -27,8 +42,11 @@ ball.element.style.top = `${yControl.inputElement.value}px`;
 
 let lastTime = document.timeline.currentTime
 let ax = 0
-let ay = 1
+let ay = 20
+let animID = 0;
+
 function simulate (timestamp) {
+    if (lastTime === 0) lastTime = timestamp
     let dt = (timestamp - lastTime )/1000
     lastTime = timestamp
 
@@ -39,10 +57,30 @@ function simulate (timestamp) {
     ball.y = ball.y + ball.vy * dt;
     ball.element.style.left = `${ball.x}px`
     ball.element.style.top = `${ball.y}px`
-    requestAnimationFrame(simulate)
+  
+    animID = requestAnimationFrame(simulate)
     }
-    start.addEventListener("click", (e) => {let animID = requestAnimationFrame(simulate)})
 
+   
+    start.addEventListener("click", (e) => {
+        requestAnimationFrame(simulate)
+
+    })
+    
+    stop.addEventListener("click", (e) => {
+        cancelAnimationFrame(animID)
+
+    })
+    reset.addEventListener("click", (e) => {
+        lastTime = 0;
+        ball.element.style.top = `${ball.x}px`
+        ball.element.style.left = `${ball.x}px`
+        ball.element.style.top =  `${xControl.inputElement.value}px`
+        ball.element.style.left = `${yControl.inputElement.value}px`
+        ball.vx = 0;
+        ball.vy = 0;
+        cancelAnimationFrame(animID)
+    })
 
 
 let counter = 0;
